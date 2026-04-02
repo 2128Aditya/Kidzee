@@ -6,7 +6,7 @@ import Programs from './components/Programs';
 import Contact from './components/Contact';
 import About from './components/About';
 import AdmissionForm from "./components/Admissionform";
-import Enquiry from "./components/Enquiry"; // 🔥 ADD
+import Enquiry from "./components/Enquiry";
 
 // Pages
 import Gallery from './pages/Gallery';
@@ -24,7 +24,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
 // 🏠 Home Page
-function Home({ setShowForm, setShowEnquiry }) { // 🔥 ADD
+function Home({ setShowForm, setShowEnquiry }) {
   return (
     <div className="min-h-screen flex flex-col font-sans text-gray-800">
       
@@ -32,21 +32,25 @@ function Home({ setShowForm, setShowEnquiry }) { // 🔥 ADD
 
       <main className="flex-grow pt-[72px] md:pt-[88px] relative overflow-hidden bg-white">
         
+        {/* Hero */}
         <section id="home">
           <Hero 
             setShowForm={setShowForm} 
-            setShowEnquiry={setShowEnquiry} // 🔥 ADD
+            setShowEnquiry={setShowEnquiry}
           />
         </section>
 
+        {/* About */}
         <section id="about">
           <About />
         </section>
 
+        {/* Programs 🔥 FIXED */}
         <section id="programmes">
-          <Programs />
+          <Programs setShowEnquiry={setShowEnquiry} />
         </section>
 
+        {/* Contact */}
         <section id="contact">
           <Contact />
         </section>
@@ -62,7 +66,7 @@ function Home({ setShowForm, setShowEnquiry }) { // 🔥 ADD
 // 🎯 Main App
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [showEnquiry, setShowEnquiry] = useState(false); // 🔥 ADD
+  const [showEnquiry, setShowEnquiry] = useState(false);
 
   return (
     <Router>
@@ -108,20 +112,34 @@ function App() {
       <Routes>
 
         {/* Home */}
-        <Route path="/" element={
-          <Home 
-            setShowForm={setShowForm} 
-            setShowEnquiry={setShowEnquiry} // 🔥 ADD
-          />
-        } />
+        <Route 
+          path="/" 
+          element={
+            <Home 
+              setShowForm={setShowForm} 
+              setShowEnquiry={setShowEnquiry} 
+            />
+          } 
+        />
 
         {/* Pages */}
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/notice" element={<Notice />} />
         <Route path="/videos" element={<Videos />} />
         <Route path="/facilities" element={<Facilities />} />
+
+        {/* 🔥 FIXED PROGRAMS PAGE */}
+        <Route 
+          path="/programs" 
+          element={
+            <ProgramsPage 
+              setShowForm={setShowForm} 
+              setShowEnquiry={setShowEnquiry} 
+            />
+          } 
+        />
+
         <Route path="/about" element={<AboutPage setShowForm={setShowForm} />} />
-        <Route path="/programs" element={<ProgramsPage setShowForm={setShowForm} />} />
         <Route path="/contact" element={<ContactPage setShowForm={setShowForm} />} />
 
         {/* Admin */}
