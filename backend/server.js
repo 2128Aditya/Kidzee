@@ -23,7 +23,10 @@ connectDB();
 // 🧩 Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
+app.use(cors({
+  origin: "*"
+}));
 
 // 📂 Static uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -34,7 +37,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 app.set('layout', 'layout');
 
-// 🛣️ API Routes
+// ================== 🛣️ API ROUTES ==================
+
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/notices', noticeRoutes);
@@ -43,14 +47,14 @@ app.use('/api/auth', authRoutes);
 // 🧑‍💻 Admin Routes (EJS)
 app.use('/admin', adminRoutes);
 
-// ================== 🔥 SERVE FRONTEND ==================
+// ================== 🔥 FRONTEND SERVE ==================
 
 // React build serve karega
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-// SPA routing fix
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+// ⚡ IMPORTANT FIX (only non-api routes ke liye)
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
 // ======================================================
