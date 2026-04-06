@@ -64,7 +64,7 @@ app.use('/admin', adminRoutes);
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // ⚡ IMPORTANT (React SPA routing fix)
-app.get("/*", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
