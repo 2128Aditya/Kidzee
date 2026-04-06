@@ -34,7 +34,7 @@ export default function Header({ setShowForm }) {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
-          <div className="h-16 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105">
+          <div className="h-20 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105">
             <img src="/assets/logo.jpg" alt="Kidzee Logo" className="h-full w-auto object-contain" />
           </div>
         </Link>
