@@ -9,12 +9,12 @@ exports.login = async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Email aur password required hai ❌"
+        message: "Email and password required  ❌"
       });
     }
 
-    // 🔥 Hardcoded admin (abhi ke liye)
-    if (email === "admin@gmail.com" && password === "123456") {
+    
+    if (email === "kidzeeakbarpur@gmail.com" && password === "Mulayam@80522") {
 
       // 🔑 Token generate
       const token = jwt.sign(
