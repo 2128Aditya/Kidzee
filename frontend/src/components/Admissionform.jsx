@@ -14,8 +14,22 @@ export default function EnquiryForm({ onClose }) {
     location: ""
   });
 
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  // ✅ Validation function
+  const validate = () => {
+    let newErrors = {};
+
+    if (!form.firstName.trim()) newErrors.firstName = "First name required";
+    if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+      newErrors.email = "Valid email required";
+    if (!form.mobile.match(/^[0-9]{10}$/))
+      newErrors.mobile = "Valid 10 digit number required";
+
+    return newErrors;
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,19 +38,22 @@ export default function EnquiryForm({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!form.firstName || !form.email || !form.mobile) {
-      alert("Please fill required fields ⚠️");
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
+    setErrors({});
     setLoading(true);
 
-    emailjs.send(
-      "service_km4odue",
-      "template_6mgzyhv",
-      form,
-      "yPbwbGe8S1oThjNHg"
-    )
+    emailjs
+      .send(
+        "service_km4odue",
+        "template_dhg5ozo",
+        form,
+        "yPbwbGe8S1oThjNHg"
+      )
       .then(() => {
         setLoading(false);
         setSuccess(true);
@@ -58,121 +75,143 @@ export default function EnquiryForm({ onClose }) {
           onClose && onClose();
         }, 2000);
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
-        console.log(err);
         alert("Email send failed ❌");
       });
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto rounded-2xl overflow-hidden shadow-xl">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 px-3">
+      
+      {/* FORM CONTAINER */}
+      <div className="relative w-full max-w-lg bg-white rounded-2xl p-5 sm:p-7 shadow-xl">
 
-      {/* Header */}
-      <div className="bg-yellow-300 p-4">
-        <h2 className="text-xl font-bold text-black">Enquire Now</h2>
-      </div>
+        {/* ❌ CLOSE BUTTON FIXED */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center"
+        >
+          ✕
+        </button>
 
-      {/* Form Section */}
-      <div className="bg-purple-200 p-6">
+        <h2 className="text-xl sm:text-2xl font-semibold text-center mb-4">
+          Admission Form
+        </h2>
+
         {success && (
-          <p className="text-green-700 text-center mb-4 font-semibold">
-            ✅ Form Submitted Successfully!
+          <p className="text-green-600 text-center mb-3">
+            ✅ Submitted Successfully
           </p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
 
-          {/* Full width */}
-          <input
-            name="firstName"
-            value={form.firstName}
-            onChange={handleChange}
-            placeholder="First Name*"
-            className="w-full px-4 py-3 rounded-full bg-gray-100 outline-none"
-          />
+          {/* First Name */}
+          <div>
+            <input
+              name="firstName"
+              value={form.firstName}
+              onChange={handleChange}
+              placeholder="First Name*"
+              className="w-full p-2 border rounded"
+            />
+            {errors.firstName && (
+              <p className="text-red-500 text-sm">{errors.firstName}</p>
+            )}
+          </div>
 
+          {/* Last Name */}
           <input
             name="lastName"
             value={form.lastName}
             onChange={handleChange}
-            placeholder="Last Name*"
-            className="w-full px-4 py-3 rounded-full bg-gray-100 outline-none"
+            placeholder="Last Name"
+            className="w-full p-2 border rounded"
           />
 
-          <input
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Email*"
-            className="w-full px-4 py-3 rounded-full bg-gray-100 outline-none"
-          />
-
-          {/* 2 Column Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Email */}
+          <div>
             <input
-              name="mobile"
-              value={form.mobile}
+              name="email"
+              value={form.email}
               onChange={handleChange}
-              placeholder="Mobile*"
-              className="px-4 py-3 rounded-full bg-gray-100 outline-none"
+              placeholder="Email*"
+              className="w-full p-2 border rounded"
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Mobile + Pincode */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="w-full">
+              <input
+                name="mobile"
+                value={form.mobile}
+                onChange={handleChange}
+                placeholder="Mobile*"
+                className="w-full p-2 border rounded"
+              />
+              {errors.mobile && (
+                <p className="text-red-500 text-sm">{errors.mobile}</p>
+              )}
+            </div>
 
             <input
               name="pincode"
               value={form.pincode}
               onChange={handleChange}
-              placeholder="Pin Code*"
-              className="px-4 py-3 rounded-full bg-gray-100 outline-none"
+              placeholder="Pincode"
+              className="w-full p-2 border rounded"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          {/* Country + State */}
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               name="country"
               value={form.country}
               onChange={handleChange}
-              placeholder="Country*"
-              className="px-4 py-3 rounded-full bg-gray-100 outline-none"
+              placeholder="Country"
+              className="w-full p-2 border rounded"
             />
-
             <input
               name="state"
               value={form.state}
               onChange={handleChange}
-              placeholder="State/District*"
-              className="px-4 py-3 rounded-full bg-gray-100 outline-none"
+              placeholder="State"
+              className="w-full p-2 border rounded"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          {/* City + Location */}
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               name="city"
               value={form.city}
               onChange={handleChange}
-              placeholder="City*"
-              className="px-4 py-3 rounded-full bg-gray-100 outline-none"
+              placeholder="City"
+              className="w-full p-2 border rounded"
             />
-
             <input
               name="location"
               value={form.location}
               onChange={handleChange}
-              placeholder="Location*"
-              className="px-4 py-3 rounded-full bg-gray-100 outline-none"
+              placeholder="Location"
+              className="w-full p-2 border rounded"
             />
           </div>
 
-          {/* Button */}
-          <div className="text-center pt-3">
-            <button
-              type="submit"
-              disabled={loading}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-10 py-3 rounded-full font-semibold transition"
-            >
-              {loading ? "Sending..." : "Submit"}
-            </button>
-          </div>
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
+          >
+            {loading ? "Sending..." : "Submit"}
+          </button>
 
         </form>
       </div>
