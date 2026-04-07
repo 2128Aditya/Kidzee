@@ -33,7 +33,7 @@ export default function EnquiryForm({ onClose }) {
 
     emailjs.send(
       "service_km4odue",      // ✅ your service ID
-      "template_dhg5ozo",     // ✅ your template ID
+      "template_6mgzyhv",     // ✅ your template ID
       form,
       "yPbwbGe8S1oThjNHg"     // ✅ your public key
     )
