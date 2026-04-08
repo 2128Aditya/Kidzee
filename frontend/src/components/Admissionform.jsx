@@ -44,11 +44,17 @@ export default function EnquiryForm({ onClose }) {
     setErrors({});
     setLoading(true);
 
+    // ✅ FIX ONLY (name field added)
+    const templateParams = {
+      ...form,
+      name: form.firstName + " " + form.lastName
+    };
+
     emailjs
       .send(
         "service_km4odue",
         "template_dhg5ozo",
-        form,
+        templateParams,
         "yPbwbGe8S1oThjNHg"
       )
       .then(() => {
@@ -81,20 +87,16 @@ export default function EnquiryForm({ onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3">
 
-      {/* MAIN CARD */}
       <div className="relative w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl">
 
-        {/* HEADER */}
         <div className="bg-gradient-to-r from-yellow-300 to-yellow-200 px-6 py-4">
           <h2 className="text-2xl font-bold text-black tracking-wide">
             Enquire Now
           </h2>
         </div>
 
-        {/* BODY */}
         <div className="bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 p-6 sm:p-8">
 
-          {/* CLOSE BUTTON */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-9 h-9 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center shadow-md"
@@ -102,17 +104,14 @@ export default function EnquiryForm({ onClose }) {
             ✕
           </button>
 
-          {/* SUCCESS */}
           {success && (
             <div className="mb-4 text-center text-green-800 font-semibold">
               ✅ Form Submitted Successfully!
             </div>
           )}
 
-          {/* FORM */}
           <form onSubmit={handleSubmit} className="space-y-4">
 
-            {/* FIRST NAME */}
             <div>
               <input
                 name="firstName"
@@ -126,7 +125,6 @@ export default function EnquiryForm({ onClose }) {
               )}
             </div>
 
-            {/* LAST NAME */}
             <input
               name="lastName"
               value={form.lastName}
@@ -135,7 +133,6 @@ export default function EnquiryForm({ onClose }) {
               className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
             />
 
-            {/* EMAIL */}
             <div>
               <input
                 name="email"
@@ -149,7 +146,6 @@ export default function EnquiryForm({ onClose }) {
               )}
             </div>
 
-            {/* MOBILE + PINCODE */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <input
@@ -173,7 +169,6 @@ export default function EnquiryForm({ onClose }) {
               />
             </div>
 
-            {/* COUNTRY + STATE */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 name="country"
@@ -192,7 +187,6 @@ export default function EnquiryForm({ onClose }) {
               />
             </div>
 
-            {/* CITY + LOCATION */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 name="city"
@@ -211,7 +205,6 @@ export default function EnquiryForm({ onClose }) {
               />
             </div>
 
-            {/* SUBMIT BUTTON */}
             <div className="pt-4 text-center">
               <button
                 type="submit"
