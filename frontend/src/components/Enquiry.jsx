@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Phone, MessageCircle, Mail, MapPin, X } from "lucide-react";
 
 export default function EnquiryPopup({ onClose }) {
 
@@ -10,142 +11,97 @@ export default function EnquiryPopup({ onClose }) {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
+  const phoneNumber = "+916390181919";
+
   const handleCall = () => {
-    window.location.href = "tel:+916390181919";
+    window.location.href = `tel:+${+916390181919}`;
   };
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/916390181919", "_blank");
+    const message = encodeURIComponent(
+      "Hello Kidzee Akbarpur, I want enquiry regarding admission. Please provide details."
+    );
+    window.open(`https://wa.me/${+916390181919}?text=${message}`, "_blank");
   };
 
   return (
-    <div style={styles.overlay}>
-      <div style={styles.card}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
-        <button style={styles.close} onClick={onClose}>×</button>
+      {/* CARD */}
+      <div className="relative w-full max-w-md rounded-3xl bg-linear-to-br from-violet-200 via-violet-300 to-purple-400 shadow-2xl animate-[fadeIn_.3s_ease]">
 
-        <h2 style={styles.title}>📩 Enquiry Details</h2>
+        {/* CLOSE */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 bg-white/40 backdrop-blur-md w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/60 transition"
+        >
+          <X size={18} />
+        </button>
 
-        <div style={styles.infoBox}>
-          <p><strong>📞 Phone:</strong></p>
-          <p style={styles.sub}>+91 6390181919</p>
-          <p style={styles.sub}>+91 6391181919</p>
+        {/* CONTENT */}
+        <div className="p-6 sm:p-7">
 
-          <p><strong>📧 Email:</strong></p>
-          <p style={styles.sub}>kidzeeakbarpur@gmail.com</p>
+          {/* TITLE */}
+          <h2 className="text-2xl font-bold text-center text-shadow-black mb-5">
+             Enquiry Details
+          </h2>
 
-          <p><strong>📍 Address:</strong></p>
-          <p style={styles.sub}>
-            697, Shastri Nagar, Akbarpur,<br />
-            Ambedkar Nagar, Uttar Pradesh 224122
-          </p>
+          {/* INFO BOX */}
+          <div className="bg-white/80 backdrop-blur-md rounded-xl p-4 space-y-3 text-sm text-gray-800 shadow">
+
+            <div className="flex items-start gap-2">
+              <Phone className="text-violet-600 animate-bounce" size={18} />
+              <div>
+                <p className="font-semibold">Phone</p>
+                <p>+91 6390181919</p>
+                <p>+91 6391181919</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <Mail className="text-violet-600 animate-bounce" size={18} />
+              <div>
+                <p className="font-semibold">Email</p>
+                <p>kidzeeakbarpur@gmail.com</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <MapPin className="text-violet-600 animate-bounce" size={18} />
+              <div>
+                <p className="font-semibold">Address</p>
+                <p>
+                  697, Shastri Nagar, Akbarpur,<br />
+                  Ambedkar Nagar, Uttar Pradesh 224122
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          {/* BUTTONS */}
+          <div className="mt-5 flex gap-3">
+
+            <button
+              onClick={handleCall}
+              className="flex-1 flex items-center justify-center gap-2 bg-violet-700 hover:bg-violet-800 text-white py-3 rounded-xl font-semibold transition transform hover:scale-105"
+            >
+              <Phone size={18} />
+              Call
+            </button>
+
+            <button
+              onClick={handleWhatsApp}
+              className="flex-1 flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl font-semibold transition transform hover:scale-105"
+            >
+              <MessageCircle size={18} className="animate-bounce" />
+              WhatsApp
+            </button>
+
+          </div>
+
         </div>
-
-        <div style={styles.btnGroup}>
-          <button style={styles.callBtn} onClick={handleCall}>
-            📞 Call
-          </button>
-
-          <button style={styles.whatsappBtn} onClick={handleWhatsApp}>
-            💬 WhatsApp
-          </button>
-        </div>
-
       </div>
     </div>
   );
 }
-
-const styles = {
-  overlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background: "rgba(0,0,0,0.65)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 999,
-   
-  },
-
-  card: {
-    background: "linear-gradient(145deg, #e6f7ff, #fff8dc)",
-    padding: "30px",
-    borderRadius: "20px",
-    width: "380px",
-    textAlign: "center",
-    position: "relative",
-    boxShadow: `
-      10px 10px 25px rgba(0,0,0,0.2),
-      -10px -10px 25px rgba(255,255,255,0.8)
-    `,
-    transform: "perspective(1000px) rotateX(3deg)",
-    animation: "popupFade 0.4s ease"
-  },
-
-  close: {
-    position: "absolute",
-    top: "12px",
-    right: "15px",
-    border: "none",
-    background: "transparent",
-    fontSize: "22px",
-    cursor: "pointer",
-    color: "#444"
-  },
-
-  title: {
-    marginBottom: "20px",
-    color: "#0077b6",
-    fontWeight: "700"
-  },
-
-  infoBox: {
-    textAlign: "left",
-    marginBottom: "25px",
-    lineHeight: "1.7",
-    fontSize: "14px",
-    color: "#333"
-  },
-
-  sub: {
-    marginLeft: "10px",
-    marginBottom: "8px",
-    color: "#555"
-  },
-
-  btnGroup: {
-    display: "flex",
-    justifyContent: "space-between",
-    gap: "10px"
-  },
-
-  callBtn: {
-    flex: 1,
-    background: "linear-gradient(135deg, #0077b6, #00b4d8)",
-    color: "#fff",
-    border: "none",
-    padding: "12px",
-    borderRadius: "10px",
-    cursor: "pointer",
-    fontWeight: "600",
-    transition: "0.3s",
-    boxShadow: "0 5px 15px rgba(0,0,0,0.2)"
-  },
-
-  whatsappBtn: {
-    flex: 1,
-    background: "linear-gradient(135deg, #25D366, #128C7E)",
-    color: "#fff",
-    border: "none",
-    padding: "12px",
-    borderRadius: "10px",
-    cursor: "pointer",
-    fontWeight: "600",
-    transition: "0.3s",
-    boxShadow: "0 5px 15px rgba(0,0,0,0.2)"
-  }
-};

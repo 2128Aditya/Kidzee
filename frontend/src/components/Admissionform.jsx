@@ -45,16 +45,8 @@ export default function EnquiryForm({ onClose }) {
     setLoading(true);
 
     const templateParams = {
-      name: (form.firstName || "") + " " + (form.lastName || ""),
-      firstName: form.firstName || "N/A",
-      lastName: form.lastName || "N/A",
-      email: form.email || "N/A",
-      mobile: form.mobile || "N/A",
-      pincode: form.pincode || "N/A",
-      country: form.country || "N/A",
-      state: form.state || "N/A",
-      city: form.city || "N/A",
-      location: form.location || "N/A"
+      name: form.firstName + " " + form.lastName,
+      ...form
     };
 
     emailjs
@@ -92,24 +84,27 @@ export default function EnquiryForm({ onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-3">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 overflow-y-auto">
 
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl overflow-hidden shadow-2xl">
+      <div className="relative w-full max-w-2xl rounded-3xl shadow-2xl bg-white overflow-hidden">
 
-        <div className="bg-gradient-to-r from-yellow-300 to-yellow-200 px-6 py-4">
-          <h2 className="text-2xl font-bold text-black tracking-wide">
+        {/* HEADER */}
+        <div className="bg-gradient-to-r from-yellow-300 to-yellow-200 px-6 py-4 flex justify-between items-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-black">
             Enquire Now
           </h2>
-        </div>
 
-        <div className="bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 p-6 sm:p-8">
-
+          {/* CLOSE BUTTON FIXED */}
           <button
             onClick={onClose}
-           className="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center shadow-md"
+            className="w-8 h-8 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center"
           >
             ✕
           </button>
+        </div>
+
+        {/* BODY */}
+        <div className="bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 p-5 sm:p-8 max-h-[75vh] overflow-y-auto">
 
           {success && (
             <div className="mb-4 text-center text-green-800 font-semibold">
@@ -117,7 +112,7 @@ export default function EnquiryForm({ onClose }) {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4 pb-6">
+          <form onSubmit={handleSubmit} className="space-y-4 pb-4">
 
             <div>
               <input
@@ -125,7 +120,7 @@ export default function EnquiryForm({ onClose }) {
                 value={form.firstName}
                 onChange={handleChange}
                 placeholder="First Name*"
-                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
               />
               {errors.firstName && (
                 <p className="text-red-600 text-sm mt-1">{errors.firstName}</p>
@@ -136,8 +131,8 @@ export default function EnquiryForm({ onClose }) {
               name="lastName"
               value={form.lastName}
               onChange={handleChange}
-              placeholder="Last Name*"
-              className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+              placeholder="Last Name"
+              className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
             />
 
             <div>
@@ -146,7 +141,7 @@ export default function EnquiryForm({ onClose }) {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="Email*"
-                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
               />
               {errors.email && (
                 <p className="text-red-600 text-sm mt-1">{errors.email}</p>
@@ -160,7 +155,7 @@ export default function EnquiryForm({ onClose }) {
                   value={form.mobile}
                   onChange={handleChange}
                   placeholder="Mobile*"
-                  className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                  className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
                 />
                 {errors.mobile && (
                   <p className="text-red-600 text-sm mt-1">{errors.mobile}</p>
@@ -171,8 +166,8 @@ export default function EnquiryForm({ onClose }) {
                 name="pincode"
                 value={form.pincode}
                 onChange={handleChange}
-                placeholder="Pin Code*"
-                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                placeholder="Pin Code"
+                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
               />
             </div>
 
@@ -181,16 +176,16 @@ export default function EnquiryForm({ onClose }) {
                 name="country"
                 value={form.country}
                 onChange={handleChange}
-                placeholder="Country*"
-                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                placeholder="Country"
+                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
               />
 
               <input
                 name="state"
                 value={form.state}
                 onChange={handleChange}
-                placeholder="State/District*"
-                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                placeholder="State"
+                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
               />
             </div>
 
@@ -199,24 +194,25 @@ export default function EnquiryForm({ onClose }) {
                 name="city"
                 value={form.city}
                 onChange={handleChange}
-                placeholder="City*"
-                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                placeholder="City"
+                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
               />
 
               <input
                 name="location"
                 value={form.location}
                 onChange={handleChange}
-                placeholder="Location*"
-                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none shadow-sm"
+                placeholder="Location"
+                className="w-full px-5 py-3 rounded-full bg-white/90 focus:ring-2 focus:ring-purple-600 outline-none"
               />
             </div>
 
-            <div className="pt-4 text-center">
+            {/* BUTTON FIX */}
+            <div className="pt-4">
               <button
                 type="submit"
                 disabled={loading}
-                className="bg-gradient-to-r from-purple-700 to-purple-500 hover:scale-105 active:scale-95 text-white px-12 py-3 rounded-full font-semibold shadow-lg transition-all duration-200"
+                className="w-full sm:w-auto bg-gradient-to-r from-purple-700 to-purple-500 hover:scale-105 active:scale-95 text-white px-12 py-3 rounded-full font-semibold shadow-lg transition-all"
               >
                 {loading ? "Sending..." : "Submit"}
               </button>
