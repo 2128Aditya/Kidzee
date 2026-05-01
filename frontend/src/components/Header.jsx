@@ -40,7 +40,7 @@ export default function Header({ setShowForm }) {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden min-[1224px]:flex gap-x-4 items-center flex-wrap justify-end flex-grow ml-2 mr-4">
+        <nav className="hidden min-[1224px]:flex gap-x-10 items-center flex-wrap justify-end flex-grow ml-2 mr-4">
           {navLinks.map((link) => (
             link.hybrid && isHomePage ? (
               <a

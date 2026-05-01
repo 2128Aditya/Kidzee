@@ -28,7 +28,7 @@ export default function EnquiryPopup({ onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
       {/* CARD */}
-      <div className="relative w-full max-w-md rounded-3xl bg-linear-to-br from-violet-200 via-violet-300 to-purple-400 shadow-2xl animate-[fadeIn_.3s_ease]">
+      <div className="relative w-full max-w-md rounded-3xl bg-linear-to-br from-violet-400 via-violet-300 to-blue-500 shadow-2xl animate-[fadeIn_.3s_ease]">
 
         {/* CLOSE */}
         <button
@@ -86,7 +86,7 @@ export default function EnquiryPopup({ onClose }) {
               onClick={handleCall}
               className="flex-1 flex items-center justify-center gap-2 bg-violet-700 hover:bg-violet-800 text-white py-3 rounded-xl font-semibold transition transform hover:scale-105"
             >
-              <Phone size={18} />
+              <Phone size={18} className="animate-bounce" />
               Call
             </button>
 
