@@ -80,16 +80,16 @@ export default function Footer() {
 
             {/* Social Icons */}
             <div className="flex gap-4">
-              <a className="p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://www.facebook.com/share/1EBwuSkqLC/?mibextid=wwXIfr">
+              <a className=" animate-bounce p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://www.facebook.com/share/1EBwuSkqLC/?mibextid=wwXIfr">
                 <Facebook size={18} />
               </a>
-              <a className="p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://www.instagram.com/kidzee.akbarpur?igsh=MXNqYXgyYmNxMGFuYg%3D%3D&utm_source=qr">
+              <a className=" animate-bounce p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://www.instagram.com/kidzee.akbarpur?igsh=MXNqYXgyYmNxMGFuYg%3D%3D&utm_source=qr">
                 <Instagram size={18} />
               </a>
-              <a className="p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://x.com/kidzeeakbarpur?s=11">
+              <a className=" animate-bounce p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://x.com/kidzeeakbarpur?s=11">
                 <Twitter size={18} />
               </a>
-              <a className="p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://www.youtube.com/@KidzeeAkbarpur">
+              <a className=" animate-bounce p-2 bg-white/10 rounded-lg hover:bg-secondary transition" href="https://www.youtube.com/@KidzeeAkbarpur">
                 <Youtube size={18} />
               </a>
             </div>
@@ -172,20 +172,20 @@ export default function Footer() {
               Contact Us
             </h3>
 
-            <div className="flex flex-col gap-4 text-sm text-bg-light/80">
-              <div className="flex items-center gap-3 animate-bounce">
-                <Phone size={16} />
+            <div className="flex flex-col gap-4 text-sm text-bg-light/80  ">
+              <div className="flex items-center gap-3 font-semibold">
+                <Phone className="text-white-600 animate-bounce" size={16} />
                 <span>+91 6390181919</span>
                  <span>+91 6391181919</span>
               </div>
 
-              <div className="flex items-center gap-3 animate-bounce">
-                <Mail size={16} />
+              <div className="flex items-center gap-3 font-semibold ">
+                <Mail className="text-white-600 animate-bounce" size={16}  />
                 <span>kidzeeakbarpur@gmail.com</span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <MapPin size={16} />
+              <div className="flex items-center gap-3 font-semibold ">
+                <MapPin className="text-white-600 animate-bounce" size={26}  />
                 <span>697, Shastri Nagar, Akbarpur,
                 Ambedkar Nagar, Uttar Pradesh
                 224122</span>
@@ -199,7 +199,7 @@ export default function Footer() {
               Our Location
             </h3>
 
-            <div className="rounded-xl overflow-hidden">
+            <div className="opacity-200 rounded-xl overflow-hidden">
               <iframe
                 src="https://www.google.com/maps?q=Kidzee%20Akbarpur%20Shastri%20Nagar%20Colony%20Akbarpur%20Uttar%20Pradesh&output=embed"
                 className="w-full h-32 border-0"
