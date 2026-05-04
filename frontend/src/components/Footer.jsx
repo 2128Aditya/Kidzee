@@ -173,13 +173,13 @@ export default function Footer() {
             </h3>
 
             <div className="flex flex-col gap-4 text-sm text-bg-light/80">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 animate-bounce">
                 <Phone size={16} />
                 <span>+91 6390181919</span>
                  <span>+91 6391181919</span>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 animate-bounce">
                 <Mail size={16} />
                 <span>kidzeeakbarpur@gmail.com</span>
               </div>
